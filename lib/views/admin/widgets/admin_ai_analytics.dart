@@ -55,27 +55,32 @@ class AdminAiAnalytics extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "ML Demand Surge Forecasting",
-                    style: GoogleFonts.poppins(
-                      fontSize: 15.5,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : const Color(0xFF0F172A),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "ML Demand Surge Forecasting",
+                      style: GoogleFonts.poppins(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    "Confidence Level: 94.8% SLA Target Prediction",
-                    style: GoogleFonts.inter(
-                      fontSize: 11,
-                      color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
+                    const SizedBox(height: 2),
+                    Text(
+                      "Confidence Level: 94.8% SLA Target Prediction",
+                      style: GoogleFonts.inter(
+                        fontSize: 11,
+                        color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -95,12 +100,12 @@ class AdminAiAnalytics extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           // Legend
-          Row(
+          Wrap(
+            spacing: 16,
+            runSpacing: 8,
             children: [
               _legendItem("Historical Actuals", AppTheme.primary, isDashed: false),
-              const SizedBox(width: 16),
               _legendItem("AI Predicted Demand", const Color(0xFF8B5CF6), isDashed: true),
-              const SizedBox(width: 16),
               _legendItem("95% Prediction Interval", const Color(0xFF8B5CF6).withOpacity(0.15), isDashed: false, isRect: true),
             ],
           ),
@@ -162,12 +167,15 @@ class AdminAiAnalytics extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Realtime AI Anomaly & Ops Log",
-                style: GoogleFonts.poppins(
-                  fontSize: 15.5,
-                  fontWeight: FontWeight.bold,
-                  color: isDark ? Colors.white : const Color(0xFF0F172A),
+              Expanded(
+                child: Text(
+                  "Realtime AI Anomaly & Ops Log",
+                  style: GoogleFonts.poppins(
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : const Color(0xFF0F172A),
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const Icon(LucideIcons.activity, color: AppTheme.primary, size: 18),
@@ -293,27 +301,32 @@ class AdminAiAnalytics extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Predictive Stockout Risk & Coverage",
-                    style: GoogleFonts.poppins(
-                      fontSize: 15.5,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : const Color(0xFF0F172A),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Predictive Stockout Risk & Coverage",
+                      style: GoogleFonts.poppins(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? Colors.white : const Color(0xFF0F172A),
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    "Hours of coverage based on live store order velocities & replenishment ETAs",
-                    style: GoogleFonts.inter(
-                      fontSize: 11.5,
-                      color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
+                    const SizedBox(height: 2),
+                    Text(
+                      "Hours of coverage based on live store order velocities & replenishment ETAs",
+                      style: GoogleFonts.inter(
+                        fontSize: 11.5,
+                        color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
