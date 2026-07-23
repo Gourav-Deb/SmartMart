@@ -41,14 +41,14 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
 
   String get activeTab => _activeTab ?? "Dashboard";
   String get selectedTimeframe => _selectedTimeframe ?? "Realtime Today";
-  String get selectedStoreFilter => _selectedStoreFilter ?? "All Dark Stores (245)";
+  String get selectedStoreFilter => _selectedStoreFilter ?? "Dark Store #14 - Delhi NCR";
 
   @override
   void initState() {
     super.initState();
     _activeTab = "Dashboard";
     _selectedTimeframe = "Realtime Today";
-    _selectedStoreFilter = "All Dark Stores (245)";
+    _selectedStoreFilter = "Dark Store #14 - Delhi NCR";
   }
 
   @override
@@ -113,7 +113,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                                             runSpacing: 6,
                                             children: [
                                               Text(
-                                                "Executive Data Analytics Control Center",
+                                                "Dark Store Management Hub",
                                                 style: GoogleFonts.poppins(
                                                   fontSize: isMobile ? 18.5 : 22,
                                                   fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                                           ),
                                           const SizedBox(height: 6),
                                           Text(
-                                            "Real-time operational telemetry, SLA adherence tracking, predictive inventory AI & rider dispatch load",
+                                            "Real-time local fulfillment telemetry, inventory levels, local fleet stats, and order fulfillment diagnostic tools",
                                             style: GoogleFonts.inter(
                                               fontSize: isMobile ? 11.5 : 12.5,
                                               color: widget.isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),

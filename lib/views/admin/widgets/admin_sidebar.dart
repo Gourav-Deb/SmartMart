@@ -217,10 +217,10 @@ class AdminSidebar extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                   const CircleAvatar(
                     radius: 15,
                     backgroundColor: AppTheme.primary,
-                    child: Text("SA", style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text("SO", style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -228,7 +228,7 @@ class AdminSidebar extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Super Admin",
+                          "Store Owner",
                           style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -236,7 +236,7 @@ class AdminSidebar extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "admin@smartmart.ai",
+                          "manager@smartmart.ai",
                           style: GoogleFonts.inter(
                             fontSize: 9.5,
                             color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
@@ -246,7 +246,7 @@ class AdminSidebar extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(LucideIcons.shield, size: 14, color: AppTheme.primary),
+                  const Icon(LucideIcons.store, size: 14, color: AppTheme.primary),
                 ],
               ),
             ),

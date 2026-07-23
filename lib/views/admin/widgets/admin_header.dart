@@ -159,7 +159,7 @@ class AdminHeader extends StatelessWidget {
                 color: AppTheme.danger,
               ),
               onPressed: onLogout,
-              tooltip: "Sign Out of Super Admin",
+              tooltip: "Sign Out of Store Owner Portal",
             ),
             const SizedBox(width: 4),
           ],
@@ -186,7 +186,7 @@ class AdminHeader extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Super Admin",
+                      "Store Owner",
                       style: GoogleFonts.inter(
                         fontSize: 10,
                         color: isDark ? const Color(0xFF64748B) : const Color(0xFF94A3B8),
