@@ -95,6 +95,28 @@ class AppData {
         ProductItem(id: 'p6', name: 'Hybrid Tomatoes 500g', category: 'veg', price: '₹28', originalPrice: '₹35', image: '🍅', icon: '🍅', unit: '500 g', color: Color(0xFFEF4444)),
       ],
     ),
+    ShopCategory(
+      id: 'supplements',
+      name: 'Supplements',
+      icon: '💪',
+      tint: Color(0xFFF5F3FF),
+      topTab: 'Supplements',
+      products: [
+        ProductItem(id: 'p_supp1', name: 'Optimum Nutrition Whey 1kg', category: 'supplements', price: '₹3,499', originalPrice: '₹3,899', image: '💪', icon: '💪', unit: '1 kg', color: Color(0xFF8B5CF6)),
+        ProductItem(id: 'p_supp2', name: 'MuscleBlaze Creatine 250g', category: 'supplements', price: '₹649', originalPrice: '₹799', image: '⚡', icon: '⚡', unit: '250 g', color: Color(0xFF8B5CF6)),
+      ],
+    ),
+    ShopCategory(
+      id: 'decorations',
+      name: 'Decorations',
+      icon: '🎈',
+      tint: Color(0xFFFFF1F2),
+      topTab: 'Decorations',
+      products: [
+        ProductItem(id: 'p_dec1', name: 'Metallic Birthday Balloons', category: 'decorations', price: '₹120', originalPrice: '₹199', image: '🎈', icon: '🎈', unit: '50 pcs', color: Color(0xFFEC4899)),
+        ProductItem(id: 'p_dec2', name: 'LED Fairy String Lights', category: 'decorations', price: '₹180', originalPrice: '₹299', image: '💡', icon: '💡', unit: '10 m', color: Color(0xFFEC4899)),
+      ],
+    ),
   ];
 
   static const List<ProductItem> featuredProducts = [
