@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../../theme/app_theme.dart';
-import '../../data/app_data.dart';
 import '../../models/quick_commerce_models.dart';
 
 class CustomerDashboardView extends StatefulWidget {
@@ -26,10 +25,48 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
   final Map<String, int> cartItems = {};
   String searchQuery = "";
 
+  final List<Map<String, dynamic>> allProductsList = [
+    // Dairy & Eggs
+    {'name': 'Amul Taaza Milk 1L', 'category': 'Dairy & Eggs', 'price': 72, 'originalPrice': 78, 'unit': '1 L', 'image': '🥛'},
+    {'name': 'Amul Butter 100g', 'category': 'Dairy & Eggs', 'price': 58, 'originalPrice': 62, 'unit': '100 g', 'image': '🧈'},
+    {'name': 'Mother Dairy Paneer 200g', 'category': 'Dairy & Eggs', 'price': 90, 'originalPrice': 100, 'unit': '200 g', 'image': '🧀'},
+    {'name': 'Fresh Farm Eggs 6pcs', 'category': 'Dairy & Eggs', 'price': 48, 'originalPrice': 55, 'unit': '6 pcs', 'image': '🥚'},
+    // Fruits
+    {'name': 'Robusta Bananas 6pcs', 'category': 'Fresh Fruits', 'price': 39, 'originalPrice': 50, 'unit': '6 pcs', 'image': '🍌'},
+    {'name': 'Shimla Red Apples 4pcs', 'category': 'Fresh Fruits', 'price': 149, 'originalPrice': 179, 'unit': '4 pcs', 'image': '🍎'},
+    {'name': 'Sweet Orange 1kg', 'category': 'Fresh Fruits', 'price': 120, 'originalPrice': 140, 'unit': '1 kg', 'image': '🍊'},
+    {'name': 'Fresh Blueberries 125g', 'category': 'Fresh Fruits', 'price': 220, 'originalPrice': 280, 'unit': '125 g', 'image': '🫐'},
+    // Veggies
+    {'name': 'Fresh Potatoes 1kg', 'category': 'Veggies', 'price': 32, 'originalPrice': 40, 'unit': '1 kg', 'image': '🥔'},
+    {'name': 'Organic Tomatoes 500g', 'category': 'Veggies', 'price': 28, 'originalPrice': 35, 'unit': '500 g', 'image': '🍅'},
+    {'name': 'Fresh Onions 1kg', 'category': 'Veggies', 'price': 45, 'originalPrice': 55, 'unit': '1 kg', 'image': '🧅'},
+    {'name': 'Green Broccoli 1pc', 'category': 'Veggies', 'price': 59, 'originalPrice': 70, 'unit': '1 pc', 'image': '🥦'},
+    // Snacks
+    {'name': 'Lays Potato Chips Classic', 'category': 'Snacks', 'price': 20, 'originalPrice': 20, 'unit': '50 g', 'image': '🍿'},
+    {'name': 'Cadbury Dairy Milk Silk', 'category': 'Snacks', 'price': 80, 'originalPrice': 80, 'unit': '60 g', 'image': '🍫'},
+    {'name': 'Oreo Chocolate Biscuits', 'category': 'Snacks', 'price': 30, 'originalPrice': 35, 'unit': '120 g', 'image': '🍪'},
+    // Beverages
+    {'name': 'Coca-Cola Can 300ml', 'category': 'Beverages', 'price': 40, 'originalPrice': 40, 'unit': '300 ml', 'image': '🥤'},
+    {'name': 'Sprite Can 300ml', 'category': 'Beverages', 'price': 40, 'originalPrice': 40, 'unit': '300 ml', 'image': '🥤'},
+    {'name': 'Nescafe Gold Coffee 50g', 'category': 'Beverages', 'price': 280, 'originalPrice': 310, 'unit': '50 g', 'image': '☕'},
+    {'name': 'Tropicana Orange Juice 1L', 'category': 'Beverages', 'price': 110, 'originalPrice': 120, 'unit': '1 L', 'image': '🧃'},
+    // Bakery
+    {'name': 'Britannia Wheat Bread', 'category': 'Bakery', 'price': 45, 'originalPrice': 48, 'unit': '400 g', 'image': '🍞'},
+    {'name': 'Chocolate Croissant 2pcs', 'category': 'Bakery', 'price': 120, 'originalPrice': 150, 'unit': '2 pcs', 'image': '🥐'},
+    // Instant Food
+    {'name': 'Maggi Masala Noodles 4pack', 'category': 'Instant Food', 'price': 56, 'originalPrice': 60, 'unit': '280 g', 'image': '🍜'},
+    {'name': 'Pringles Sour Cream & Onion', 'category': 'Instant Food', 'price': 99, 'originalPrice': 109, 'unit': '100 g', 'image': '🥔'},
+    // Ice Creams
+    {'name': 'Kwality Walls Choco Feast', 'category': 'Ice Creams', 'price': 40, 'originalPrice': 45, 'unit': '1 pc', 'image': '🍦'},
+    {'name': 'Amul Vanilla Gold Tub 1L', 'category': 'Ice Creams', 'price': 220, 'originalPrice': 240, 'unit': '1 L', 'image': '🍨'},
+  ];
+
   double get totalCartPrice {
     double total = 0;
     cartItems.forEach((name, qty) {
-      total += 45.0 * qty; // Estimated product price
+      final product = allProductsList.firstWhere((p) => p['name'] == name, orElse: () => {'price': 0});
+      final double price = (product['price'] as num).toDouble();
+      total += price * qty;
     });
     return total;
   }
@@ -64,7 +101,7 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
                     const SizedBox(height: 24),
 
                     // Quick Categories Selector
-                    _buildCategoriesRow(isDark),
+                    _buildCategoriesGrid(isDark),
 
                     const SizedBox(height: 28),
 
@@ -313,41 +350,114 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
     );
   }
 
-  Widget _buildCategoriesRow(bool isDark) {
-    final categories = ["All", "Dairy & Eggs", "Fresh Fruits", "Veggies", "Snacks", "Beverages"];
+  Widget _buildCategoriesGrid(bool isDark) {
+    final categoriesList = [
+      {'name': 'Dairy & Eggs', 'icon': '🥛', 'color': const Color(0xFFE0F2FE)},
+      {'name': 'Fresh Fruits', 'icon': '🍎', 'color': const Color(0xFFFEE2E2)},
+      {'name': 'Veggies', 'icon': '🥦', 'color': const Color(0xFFDCFCE7)},
+      {'name': 'Snacks', 'icon': '🍿', 'color': const Color(0xFFFEF3C7)},
+      {'name': 'Beverages', 'icon': '🥤', 'color': const Color(0xFFF3E8FF)},
+      {'name': 'Bakery', 'icon': '🍞', 'color': const Color(0xFFE2E8F0)},
+      {'name': 'Instant Food', 'icon': '🍜', 'color': const Color(0xFFFCE7F3)},
+      {'name': 'Ice Cream', 'icon': '🍨', 'color': const Color(0xFFFFE4E6)},
+    ];
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: categories.map((cat) {
-          final isSelected = selectedCategory == cat;
-          return Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: ChoiceChip(
-              label: Text(cat),
-              selected: isSelected,
-              onSelected: (_) => setState(() => selectedCategory = cat),
-              selectedColor: AppTheme.primary,
-              backgroundColor: isDark ? AppTheme.cardDark : const Color(0xFFF1F5F9),
-              labelStyle: GoogleFonts.inter(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: isSelected
-                    ? Colors.white
-                    : (isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569)),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final int crossAxisCount = constraints.maxWidth > 800 ? 8 : 4;
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 0.95,
+          ),
+          itemCount: categoriesList.length,
+          itemBuilder: (context, index) {
+            final cat = categoriesList[index];
+            final String name = cat['name'] as String;
+            final String icon = cat['icon'] as String;
+            final Color color = cat['color'] as Color;
+            final bool isSelected = selectedCategory == name;
+
+            return InkWell(
+              onTap: () => setState(() => selectedCategory = isSelected ? "All" : name),
+              borderRadius: BorderRadius.circular(16),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? AppTheme.primary
+                      : (isDark ? AppTheme.cardDarkElevated : color.withOpacity(0.35)),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: isSelected
+                        ? AppTheme.primary
+                        : (isDark ? AppTheme.borderDarkActive : color.withOpacity(0.55)),
+                    width: 1.5,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(icon, style: const TextStyle(fontSize: 28)),
+                    const SizedBox(height: 6),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.inter(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: isSelected
+                              ? Colors.white
+                              : (isDark ? Colors.white : const Color(0xFF0F172A)),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
+            );
+          },
+        );
+      },
     );
   }
 
   Widget _buildProductGrid(bool isDark) {
-    final products = AppData.featuredProducts;
+    final filteredProducts = allProductsList.where((p) {
+      final matchesCategory = selectedCategory == "All" || p['category'] == selectedCategory;
+      final matchesSearch = searchQuery.isEmpty || p['name'].toString().toLowerCase().contains(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    }).toList();
+
+    if (filteredProducts.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40.0),
+          child: Column(
+            children: [
+              const Icon(LucideIcons.searchCode, size: 48, color: AppTheme.danger),
+              const SizedBox(height: 12),
+              Text(
+                "No products found",
+                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black87),
+              ),
+              Text(
+                "Try checking your search query or category filters",
+                style: GoogleFonts.inter(fontSize: 12, color: const Color(0xFF64748B)),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -361,10 +471,20 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
             mainAxisSpacing: 16,
             childAspectRatio: 0.75,
           ),
-          itemCount: products.length,
+          itemCount: filteredProducts.length,
           itemBuilder: (context, index) {
-            final item = products[index];
-            final qty = cartItems[item.name] ?? 0;
+            final item = filteredProducts[index];
+            final String name = item['name'] as String;
+            final double price = (item['price'] as num).toDouble();
+            final double originalPrice = (item['originalPrice'] as num).toDouble();
+            final String unit = item['unit'] as String;
+            final String image = item['image'] as String;
+            final int qty = cartItems[name] ?? 0;
+
+            Color tintColor = const Color(0xFF10B981);
+            if (item['category'] == 'Dairy & Eggs') tintColor = const Color(0xFF0284C7);
+            if (item['category'] == 'Fresh Fruits') tintColor = const Color(0xFFEF4444);
+            if (item['category'] == 'Snacks') tintColor = const Color(0xFFF97316);
 
             return Container(
               padding: const EdgeInsets.all(16),
@@ -384,15 +504,15 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
                       width: 80,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: AppTheme.primary.withOpacity(0.08),
+                        color: tintColor.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Text(item.image, style: const TextStyle(fontSize: 42)),
+                      child: Text(image, style: const TextStyle(fontSize: 42)),
                     ),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    item.name,
+                    name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.poppins(
@@ -402,10 +522,10 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
                     ),
                   ),
                   Text(
-                    item.unit,
+                    unit,
                     style: GoogleFonts.inter(
                       fontSize: 11.5,
-                      color: isDark ? const Color(0xFF64748B) : const Color(0xFF64748B),
+                      color: const Color(0xFF64748B),
                     ),
                   ),
                   const Spacer(),
@@ -416,27 +536,28 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            item.price,
+                            "₹${price.toStringAsFixed(0)}",
                             style: GoogleFonts.poppins(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppTheme.primary,
                             ),
                           ),
-                          Text(
-                            item.originalPrice,
-                            style: GoogleFonts.inter(
-                              fontSize: 11,
-                              decoration: TextDecoration.lineThrough,
-                              color: isDark ? const Color(0xFF64748B) : const Color(0xFF94A3B8),
+                          if (originalPrice > price)
+                            Text(
+                              "₹${originalPrice.toStringAsFixed(0)}",
+                              style: GoogleFonts.inter(
+                                fontSize: 11,
+                                decoration: TextDecoration.lineThrough,
+                                color: isDark ? const Color(0xFF64748B) : const Color(0xFF94A3B8),
+                              ),
                             ),
-                          ),
                         ],
                       ),
                       qty == 0
                           ? ElevatedButton(
                               onPressed: () {
-                                setState(() => cartItems[item.name] = 1);
+                                setState(() => cartItems[name] = 1);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppTheme.primary,
@@ -460,9 +581,9 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
                                     onPressed: () {
                                       setState(() {
                                         if (qty > 1) {
-                                          cartItems[item.name] = qty - 1;
+                                          cartItems[name] = qty - 1;
                                         } else {
-                                          cartItems.remove(item.name);
+                                          cartItems.remove(name);
                                         }
                                       });
                                     },
@@ -477,7 +598,7 @@ class _CustomerDashboardViewState extends State<CustomerDashboardView> {
                                   IconButton(
                                     icon: const Icon(LucideIcons.plus, size: 14, color: Colors.white),
                                     onPressed: () {
-                                      setState(() => cartItems[item.name] = qty + 1);
+                                      setState(() => cartItems[name] = qty + 1);
                                     },
                                   ),
                                 ],
