@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:smartcart/models/app_user.dart';
+import '../models/app_user.dart';
+import '../services/auth_service.dart';
 
 class AuthController extends ChangeNotifier {
   AppUser? _currentUser;
@@ -8,12 +9,12 @@ class AuthController extends ChangeNotifier {
   AppUser? get currentUser => _currentUser;
   String? get error => _error;
   bool get isLoggedIn => _currentUser != null;
-  bool get isAdmin => _currentUser?.isAdmin ?? false;
+  bool get isAdmin => _currentUser?.role == UserRole.admin;
 
   bool login(String email, String password) {
     final normalized = email.trim().toLowerCase();
     DemoAccount? match;
-    for (final account in AuthAccounts.defaults) {
+    for (final account in [AuthAccounts.admin, AuthAccounts.rider, AuthAccounts.customer]) {
       if (account.email == normalized && account.password == password) {
         match = account;
         break;
@@ -26,7 +27,12 @@ class AuthController extends ChangeNotifier {
       return false;
     }
 
-    _currentUser = match.user;
+    _currentUser = AppUser(
+      uid: match.email,
+      email: match.email,
+      name: match.name,
+      role: match.role,
+    );
     _error = null;
     notifyListeners();
     return true;

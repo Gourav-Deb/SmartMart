@@ -39,9 +39,12 @@ class _LoginViewState extends State<LoginView> {
       if (role == "ADMIN") {
         emailController.text = "admin@smartmart.ai";
         passwordController.text = "admin123";
-      } else {
+      } else if (role == "RIDER") {
         emailController.text = "rider.rohan@smartmart.ai";
         passwordController.text = "rider123";
+      } else {
+        emailController.text = "customer.riya@smartmart.ai";
+        passwordController.text = "customer123";
       }
     });
   }
@@ -198,12 +201,20 @@ class _LoginViewState extends State<LoginView> {
                                 icon: LucideIcons.shield,
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 8),
                             Expanded(
                               child: _rolePill(
                                 role: "RIDER",
                                 label: "Rider Partner",
                                 icon: LucideIcons.bike,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _rolePill(
+                                role: "CUSTOMER",
+                                label: "Customer App",
+                                icon: LucideIcons.shoppingBag,
                               ),
                             ),
                           ],

@@ -171,7 +171,6 @@ class _PortalSelectionViewState extends State<PortalSelectionView> {
                     // Cards Layout
                     LayoutBuilder(
                       builder: (context, constraints) {
-                        final isWide = constraints.maxWidth > 900;
                         final cards = [
                           _buildRoleCard(
                             roleId: "ADMIN",
@@ -209,23 +208,45 @@ class _PortalSelectionViewState extends State<PortalSelectionView> {
                             buttonLabel: "Launch Rider Portal",
                             accentColor: const Color(0xFF10B981),
                           ),
+                          _buildRoleCard(
+                            roleId: "CUSTOMER",
+                            title: "Customer Storefront",
+                            subtitle: "10-Minute Express Grocery Shop",
+                            badge: "MOBILE & WEB APP",
+                            badgeColor: const Color(0xFF8B5CF6),
+                            icon: LucideIcons.shoppingBag,
+                            description:
+                                "Ultra-fast customer quick-commerce experience. Browse curated product categories, instant search, dynamic cart checkout, live order tracking, and Firebase auth integration.",
+                            features: [
+                              "10-Min Flash Delivery Catalog & Categories",
+                              "Realtime Cart Checkout & UPI / Card Gateway",
+                              "Live Delivery Order Tracking & ETA Map",
+                              "Account Profile & Order History",
+                            ],
+                            buttonLabel: "Launch Customer Shop",
+                            accentColor: const Color(0xFF8B5CF6),
+                          ),
                         ];
 
-                        if (isWide) {
+                        if (constraints.maxWidth > 1100) {
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(child: cards[0]),
-                              const SizedBox(width: 32),
+                              const SizedBox(width: 24),
                               Expanded(child: cards[1]),
+                              const SizedBox(width: 24),
+                              Expanded(child: cards[2]),
                             ],
                           );
                         } else {
                           return Column(
                             children: [
                               cards[0],
-                              const SizedBox(height: 32),
+                              const SizedBox(height: 24),
                               cards[1],
+                              const SizedBox(height: 24),
+                              cards[2],
                             ],
                           );
                         }

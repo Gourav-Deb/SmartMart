@@ -1,53 +1,73 @@
-enum UserRole { user, admin }
+import '../services/auth_service.dart';
 
 class AppUser {
-  final String name;
+  final String uid;
   final String email;
+  final String name;
   final UserRole role;
 
-  const AppUser({
-    required this.name,
+  AppUser({
+    required this.uid,
     required this.email,
+    required this.name,
     required this.role,
   });
 
   bool get isAdmin => role == UserRole.admin;
-  bool get isUser => role == UserRole.user;
-
-  String get roleLabel => isAdmin ? 'Admin' : 'User';
+  String get roleLabel {
+    switch (role) {
+      case UserRole.admin:
+        return 'Super Admin';
+      case UserRole.rider:
+        return 'Delivery Partner';
+      case UserRole.customer:
+        return 'Customer';
+    }
+  }
 }
 
 class DemoAccount {
   final String email;
   final String password;
-  final AppUser user;
+  final String name;
+  final UserRole role;
 
   const DemoAccount({
     required this.email,
     required this.password,
-    required this.user,
+    required this.name,
+    required this.role,
   });
+
+  AppUser get user => AppUser(
+        uid: email,
+        email: email,
+        name: name,
+        role: role,
+      );
 }
 
 class AuthAccounts {
-  static const List<DemoAccount> defaults = [
-    DemoAccount(
-      email: 'user@smartmart.com',
-      password: 'user123',
-      user: AppUser(
-        name: 'SmartMart User',
-        email: 'user@smartmart.com',
-        role: UserRole.user,
-      ),
-    ),
-    DemoAccount(
-      email: 'admin@smartmart.com',
-      password: 'admin123',
-      user: AppUser(
-        name: 'SmartMart Admin',
-        email: 'admin@smartmart.com',
-        role: UserRole.admin,
-      ),
-    ),
-  ];
+  static const admin = DemoAccount(
+    email: 'admin@smartmart.ai',
+    password: 'admin123',
+    name: 'Super Admin',
+    role: UserRole.admin,
+  );
+
+  static const rider = DemoAccount(
+    email: 'rider.rohan@smartmart.ai',
+    password: 'rider123',
+    name: 'Rohan Kumar',
+    role: UserRole.rider,
+  );
+
+  static const customer = DemoAccount(
+    email: 'customer.riya@smartmart.ai',
+    password: 'customer123',
+    name: 'Riya Sharma',
+    role: UserRole.customer,
+  );
+
+  static List<DemoAccount> get defaults => [admin, rider, customer];
 }

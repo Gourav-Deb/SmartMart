@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:smartcart/data/app_data.dart';
+import '../data/app_data.dart';
 
 class CartItem {
   final ProductItem product;
